@@ -1,0 +1,375 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cyberpunk Background */
+    --background: 220 30% 8%;
+    --background-gradient: linear-gradient(135deg, hsl(220, 40%, 10%), hsl(240, 35%, 5%));
+    --foreground: 210 15% 85%;
+
+    /* Card system with glow */
+    --card: 220 25% 12%;
+    --card-foreground: 210 15% 90%;
+    --card-border: 180 100% 50%;
+    --card-glow: 180 100% 50%;
+    --card-shadow: 0 0 20px hsl(var(--card-glow) / 0.3);
+    --card-hover-shadow: 0 0 30px hsl(var(--card-glow) / 0.5);
+
+    /* Popover system */
+    --popover: 220 25% 12%;
+    --popover-foreground: 210 15% 90%;
+
+    /* Neon Primary - Cyan */
+    --primary: 180 100% 50%;
+    --primary-foreground: 220 30% 8%;
+    --primary-glow: 180 100% 60%;
+
+    /* Secondary - Dark */
+    --secondary: 220 25% 15%;
+    --secondary-foreground: 210 15% 85%;
+
+    /* Muted colors */
+    --muted: 220 20% 18%;
+    --muted-foreground: 220 10% 60%;
+
+    /* Neon Accent - Purple */
+    --accent: 280 100% 60%;
+    --accent-foreground: 220 30% 8%;
+    --accent-glow: 280 100% 70%;
+
+    /* Neon Status colors */
+    --success: 120 100% 50%;
+    --success-foreground: 220 30% 8%;
+    --success-glow: 120 100% 60%;
+    
+    --warning: 45 100% 55%;
+    --warning-foreground: 220 30% 8%;
+    --warning-glow: 45 100% 65%;
+    
+    --destructive: 0 100% 55%;
+    --destructive-foreground: 220 30% 8%;
+    --destructive-glow: 0 100% 65%;
+
+    /* UI colors */
+    --border: 220 25% 20%;
+    --input: 220 25% 15%;
+    --ring: 180 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground;
+    background: var(--background-gradient);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Cyberpunk Habit Cards */
+  .habit-card {
+    @apply bg-card rounded-2xl p-6 transition-all duration-300 ease-out border;
+    border-color: hsl(var(--card-border) / 0.3);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(10px);
+  }
+  
+  .habit-card:hover {
+    @apply scale-[1.02];
+    box-shadow: var(--card-hover-shadow);
+    border-color: hsl(var(--card-border) / 0.6);
+  }
+  
+  /* Calendar with neon glow */
+  .calendar-day {
+    @apply w-8 h-8 rounded-lg flex items-center justify-center text-xs font-medium cursor-pointer transition-all duration-200 border;
+    border-color: hsl(var(--border));
+  }
+  
+  .calendar-day.completed {
+    @apply bg-success text-success-foreground border-success;
+    box-shadow: 0 0 15px hsl(var(--success-glow) / 0.5);
+  }
+  
+  .calendar-day.missed {
+    @apply bg-destructive text-destructive-foreground border-destructive;
+    box-shadow: 0 0 10px hsl(var(--destructive-glow) / 0.4);
+  }
+  
+  .calendar-day.untracked {
+    @apply bg-muted text-muted-foreground border-border;
+  }
+  
+  .calendar-day:hover {
+    @apply scale-110;
+    box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.4);
+  }
+  
+  /* Neon Progress Ring */
+  .progress-ring {
+    @apply transition-all duration-700 ease-out;
+    filter: drop-shadow(0 0 10px hsl(var(--success-glow) / 0.6));
+  }
+  
+  /* Enhanced Streak Flame */
+  .streak-flame {
+    @apply animate-pulse;
+    filter: drop-shadow(0 0 12px hsl(var(--warning-glow) / 0.8));
+  }
+  
+  /* Glowing Badge */
+  .celebration-badge {
+    @apply bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium;
+    box-shadow: 0 0 20px hsl(var(--accent-glow) / 0.5);
+  }
+  
+  /* Category Panel */
+  .category-panel {
+    @apply bg-card rounded-xl p-4 border transition-all duration-300;
+    border-color: hsl(var(--card-border) / 0.2);
+    box-shadow: 0 0 15px hsl(var(--card-glow) / 0.2);
+  }
+  
+  .category-panel:hover {
+    border-color: hsl(var(--card-border) / 0.4);
+    box-shadow: 0 0 25px hsl(var(--card-glow) / 0.3);
+  }
+  
+  /* Typewriter Effect */
+  .typewriter {
+    overflow: hidden;
+    border-right: 2px solid hsl(var(--primary));
+    white-space: nowrap;
+    animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;
+  }
+  
+  /* Particle Effects */
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: hsl(var(--success));
+    border-radius: 50%;
+    animation: particle 1s ease-out forwards;
+  }
+  
+  /* Glow Button */
+  .glow-button {
+    @apply transition-all duration-300;
+    box-shadow: 0 0 10px hsl(var(--primary-glow) / 0.3);
+  }
+  
+  .glow-button:hover {
+    box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.6);
+    transform: translateY(-2px);
+  }
+  
+  /* XP Bar */
+  .xp-bar {
+    @apply relative overflow-hidden rounded-full;
+    background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--primary)));
+    box-shadow: 0 0 15px hsl(var(--accent-glow) / 0.4);
+  }
+  
+  /* Heatmap Cell */
+  .heatmap-cell {
+    @apply w-4 h-4 rounded border cursor-pointer transition-all duration-200;
+    border-color: hsl(var(--border));
+  }
+  
+  .heatmap-cell.level-0 { @apply bg-muted; }
+  .heatmap-cell.level-1 { 
+    background: hsl(var(--success) / 0.3);
+    box-shadow: 0 0 5px hsl(var(--success-glow) / 0.3);
+  }
+  .heatmap-cell.level-2 { 
+    background: hsl(var(--success) / 0.6);
+    box-shadow: 0 0 8px hsl(var(--success-glow) / 0.4);
+  }
+  .heatmap-cell.level-3 { 
+    background: hsl(var(--success));
+    box-shadow: 0 0 12px hsl(var(--success-glow) / 0.6);
+  }
+  
+  .heatmap-cell:hover {
+    @apply scale-125;
+    box-shadow: 0 0 15px hsl(var(--primary-glow) / 0.6);
+  }
+}
+
+@layer utilities {
+  .animate-bounce-in {
+    animation: bounceIn 0.5s ease-out;
+  }
+  
+  .animate-count-up {
+    animation: countUp 1s ease-out;
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.6s ease-out;
+  }
+  
+  .animate-glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-particle-burst {
+    animation: particleBurst 0.8s ease-out;
+  }
+  
+  .animate-neon-flicker {
+    animation: neonFlicker 0.1s infinite linear;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes countUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: hsl(var(--primary)); }
+}
+
+@keyframes particle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 10px hsl(var(--primary-glow) / 0.4);
+  }
+  100% {
+    box-shadow: 0 0 25px hsl(var(--primary-glow) / 0.8);
+  }
+}
+
+@keyframes particleBurst {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes neonFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
